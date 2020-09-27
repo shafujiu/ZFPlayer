@@ -798,7 +798,8 @@ static NSMutableDictionary <NSString* ,NSNumber *> *_zfPlayRecords;
 }
 
 - (BOOL)shouldAutorotate {
-    return [self shouldForceDeviceOrientation];
+    return NO;
+//    return [self shouldForceDeviceOrientation];
 }
 
 - (BOOL)allowOrentitaionRotation {

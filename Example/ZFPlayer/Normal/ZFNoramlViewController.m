@@ -49,17 +49,17 @@ static NSString *kVideoCover = @"https://upload-images.jianshu.io/upload_images/
     self.player.controlView = self.controlView;
     /// 设置退到后台继续播放
     self.player.pauseWhenAppResignActive = NO;
-    
+    self.player.allowOrentitaionRotation = NO;
     @weakify(self)
-    self.player.orientationWillChange = ^(ZFPlayerController * _Nonnull player, BOOL isFullScreen) {
-        @strongify(self)
-        kAPPDelegate.allowOrentitaionRotation = isFullScreen;
-        [self setNeedsStatusBarAppearanceUpdate];
-        if (!isFullScreen) {
-            /// 解决导航栏上移问题
-            self.navigationController.navigationBar.zf_height = KNavBarHeight;
-        }
-    };
+//    self.player.orientationWillChange = ^(ZFPlayerController * _Nonnull player, BOOL isFullScreen) {
+//        @strongify(self)
+//        kAPPDelegate.allowOrentitaionRotation = isFullScreen;
+//        [self setNeedsStatusBarAppearanceUpdate];
+//        if (!isFullScreen) {
+//            /// 解决导航栏上移问题
+//            self.navigationController.navigationBar.zf_height = KNavBarHeight;
+//        }
+//    };
     
     /// 播放完成
     self.player.playerDidToEnd = ^(id  _Nonnull asset) {

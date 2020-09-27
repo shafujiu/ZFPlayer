@@ -78,13 +78,13 @@ static NSString *kIdentifier = @"kIdentifier";
     self.tableView.frame = self.view.bounds;
 }
 
-- (BOOL)shouldAutorotate {
-    return YES;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
-}
+//- (BOOL)shouldAutorotate {
+//    return YES;
+//}
+//
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+//    return UIInterfaceOrientationMaskPortrait;
+//}
 
 #pragma mark - UITableViewDataSource
 
