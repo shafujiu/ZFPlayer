@@ -50,6 +50,7 @@ static NSString *kVideoCover = @"https://upload-images.jianshu.io/upload_images/
     /// 设置退到后台继续播放
     self.player.pauseWhenAppResignActive = NO;
     self.player.allowOrentitaionRotation = NO;
+    
     @weakify(self)
 //    self.player.orientationWillChange = ^(ZFPlayerController * _Nonnull player, BOOL isFullScreen) {
 //        @strongify(self)
@@ -147,24 +148,24 @@ static NSString *kVideoCover = @"https://upload-images.jianshu.io/upload_images/
     return UIStatusBarStyleDefault;
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return self.player.isStatusBarHidden;
-}
+//- (BOOL)prefersStatusBarHidden {
+//    return self.player.isStatusBarHidden;
+//}
+//
+//- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+//    return UIStatusBarAnimationSlide;
+//}
+//
+//- (BOOL)shouldAutorotate {
+//    return self.player.shouldAutorotate;
+//}
 
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationSlide;
-}
-
-- (BOOL)shouldAutorotate {
-    return self.player.shouldAutorotate;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    if (self.player.isFullScreen && self.player.orientationObserver.fullScreenMode == ZFFullScreenModeLandscape) {
-        return UIInterfaceOrientationMaskLandscape;
-    }
-    return UIInterfaceOrientationMaskPortrait;
-}
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+//    if (self.player.isFullScreen && self.player.orientationObserver.fullScreenMode == ZFFullScreenModeLandscape) {
+//        return UIInterfaceOrientationMaskLandscape;
+//    }
+//    return UIInterfaceOrientationMaskPortrait;
+//}
 
 - (ZFPlayerControlView *)controlView {
     if (!_controlView) {

@@ -41,7 +41,8 @@
 }
 
 - (BOOL)shouldAutorotate {
-    return YES;
+    return NO;
+//    return YES;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
