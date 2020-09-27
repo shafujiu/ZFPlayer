@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
     s.name             = 'ZFPlayer'
     s.version          = '3.3.3'
     s.summary          = 'A good player made by renzifeng'
-    s.homepage         = 'https://github.com/renzifeng/ZFPlayer'
+    s.homepage         = 'https://github.com/shafujiu/ZFPlayer'
     s.license          = { :type => 'MIT', :file => 'LICENSE' }
     s.author           = { 'renzifeng' => 'zifeng1300@gmail.com' }
     s.source           = { :git => 'https://github.com/shafujiu/ZFPlayer', :tag => s.version.to_s }
