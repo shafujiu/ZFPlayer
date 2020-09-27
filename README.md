@@ -1,3 +1,76 @@
+fork 一个第三方支持pod的仓库，然后自己维护，通过cocoapods 导入自己fork的库
+
+## 记录一下自己的心德
+
+最近在使用一个第三方库，ZFPlayer，但是发现本身库可能需要做一些项目上的定制。作者的库也是不可能为我们量身定制的，只有自己维护一份，在通过cocoapods导入自己维护的仓库。
+
+该想法的灵感，要感谢、YBPhotoBrowser，iOS 14 发布之后，我们在使用YBPhotoBrowser的时候,由于YBPhotoBrowser 的图片展示是基于YYAnimatatedImageView;YYImage 作者已经没有维护了，在iOS 14 上面YYAnimatedImageView 就异常了。
+
+
+最后是需要修改YYAnimatedImageView.m 文件中的如下方法
+```
+- (void)displayLayer:(CALayer *)layer {
+//    if (_curFrame) {
+//        layer.contents = (__bridge id)_curFrame.CGImage;
+//    } //  旧方法
+    
+    UIImage *currentFrame = _curFrame;
+    if (!currentFrame) {
+        currentFrame = self.image;
+    }
+    if (currentFrame) {
+        layer.contentsScale = currentFrame.scale;
+        layer.contents = (__bridge id)currentFrame.CGImage;
+    }
+}
+
+```
+好了 关键的来了，为了解决YBPhotoBrowser 图片显示的问题，我们需要修改YYImage 库的源码，最后github上面网友贡献了他fork的一份YYImage的地址，里面对该方法进行了修改。[这是地址，感谢作者的分享](https://github.com/QiuYeHong90/YYImage.git)完美解决了这个问题。
+
+于是再用到我们项目中来，我们也可以参考该方案书、fork ZFPlayer 定制自己定制化的ZFPlayer。
+
+期间也遇到了一些问题，YYImage 库很单一，没有依赖，且YB作者处理的依赖YYImage的pod 也非常好，当我们自己单独导入YYImage的时候，YBPhotoBrowser 的自己的内部依赖会解除掉。 YYImage的podfile 文件大概是这个样子
+
+```
+pod 'YYImage', :git => 'https://github.com/QiuYeHong90/YYImage.git'
+```
+
+然后ZFPlayer 正常情况下依赖是这个样子
+```
+  pod 'ZFPlayer'
+  pod 'ZFPlayer/ControlView' 
+  pod 'ZFPlayer/AVPlayer' 
+```
+
+它是有单独的下面相关的库的依赖的，虽然也修改了**ZFPlayer.podspec**中相关的一些如
+
+```
+s.homepage         = 'https://github.com/shafujiu/ZFPlayer'
+
+s.source           = { :git => 'https://github.com/shafujiu/ZFPlayer', :tag => s.version.to_s }
+```
+
+然后我们到自己的podfile中这样还是不行
+```
+  pod 'ZFPlayer', :git => 'https://github.com/shafujiu/ZFPlayer'
+  pod 'ZFPlayer/ControlView'
+  pod 'ZFPlayer/AVPlayer'
+```
+
+理论上 s.homepage 已经定义好了，为啥还是不行呢？
+最后无奈给每个都加上了,完美解决。
+
+```
+  pod 'ZFPlayer', :git => 'https://github.com/shafujiu/ZFPlayer'
+  pod 'ZFPlayer/ControlView', :git => 'https://github.com/shafujiu/ZFPlayer'
+  pod 'ZFPlayer/AVPlayer', :git => 'https://github.com/shafujiu/ZFPlayer'
+```
+
+> ZFPlayer 更新到4.0.0 以后，作者更换了横屏的一些实现方式。目前的版本不是很稳定，于是我的fork 是一个较为稳定的3.3.3版本。然后再做了很小的改动，控制异常的横屏。最后期待作者的稳定版本。感谢作者的无私分享。
+
+
+
+
 
 <p align="center">
 <img src="https://upload-images.jianshu.io/upload_images/635942-092427e571756309.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ZFPlayer" title="ZFPlayer" width="557"/>
