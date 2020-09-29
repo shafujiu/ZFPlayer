@@ -725,6 +725,8 @@ static NSMutableDictionary <NSString* ,NSNumber *> *_zfPlayRecords;
 }
 
 - (void)enterFullScreen:(BOOL)fullScreen animated:(BOOL)animated {
+    // 避免ZFFullScreenModeAutomatic模式下 不能旋转到正确方向
+    if (self.orientationObserver.fullScreenMode == ZFFullScreenModeAutomatic) {return;}
     if (self.orientationObserver.fullScreenMode == ZFFullScreenModePortrait) {
         [self.orientationObserver enterPortraitFullScreen:fullScreen animated:animated];
     } else {
